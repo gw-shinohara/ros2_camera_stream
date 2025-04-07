@@ -1,0 +1,30 @@
+
+services:
+  ros2_camera:
+    build:
+      context: ./ros2_container/
+      dockerfile: Dockerfile
+    container_name: ros2_camera_container
+    environment:
+      - ROS_DOMAIN_ID=10
+      - NVIDIA_VISIBLE_DEVICES=all
+    volumes:
+      - ./ros2_camera/ros2_ws_src:/ros2_ws/src:ro
+    devices:
+      - /dev/video0:/dev/video0
+    network_mode: host 
+    ipc: host
+
+  ros2_rqt:
+    build:
+      context: ./ros2_rqt/
+      dockerfile: Dockerfile
+    container_name: ros2_rqt
+    environment:
+      - ROS_DOMAIN_ID=10
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1 
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    network_mode: host 
+    ipc: host
