@@ -2,9 +2,9 @@
 services:
   ros2_camera:
     build:
-      context: ./ros2_container/
+      context: ./ros2_camera/
       dockerfile: Dockerfile
-    container_name: ros2_camera_container
+    container_name: ros2_camera
     environment:
       - ROS_DOMAIN_ID=10
       - NVIDIA_VISIBLE_DEVICES=all
