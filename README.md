@@ -4,6 +4,7 @@
 このプロジェクトでは、ROS2のカメラ関連のノードをDockerコンテナで実行できる環境を提供します。
 `ros2_camera`コンテナ内の`/ros2_ws/src`ディレクトリにマウントされた`ros2_ws_src`フォルダに変更を加えることで、
 別のノードを開発する際の基盤コンテナとして活用できます。
+また、docker-compose.ymlファイルの設定でコンテナ間の通信を実施しており、新たにコンテナを追加することも可能です。
 
 ## 構成
 ```
@@ -24,6 +25,10 @@ ros2_camera_stream/
 ### ros2_rqt
 1. ディスプレイの共有コマンドを実行します(`xhost +local:docker`)。
 2. `docker-compose.yml`で構成されているDockerコンテナを起動します(`docker compose run ros2_rqt`)。
+### 同時起動
+1. ディスプレイの共有コマンドを実行します(`xhost +local:docker`)。
+2. `docker-compose.yml`で構成されているDockerコンテナを起動します(`docker compose up -d`)。
+
 
 
 ## 基盤コンテナとしての利用方法
