@@ -21,10 +21,13 @@ services:
       dockerfile: Dockerfile
     container_name: ros2_rqt
     command: ros2 run rqt_image_view rqt_image_view
+    devices:
+    - /dev/dri:/dev/dri
     environment:
       - ROS_DOMAIN_ID=10
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1 
+      - XDG_RUNTIME_DIR=/tmp/runtime-root
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     network_mode: host 
