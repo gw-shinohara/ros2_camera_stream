@@ -20,6 +20,7 @@ services:
       context: ./ros2_rqt/
       dockerfile: Dockerfile
     container_name: ros2_rqt
+    command: ros2 run rqt_image_view rqt_image_view
     environment:
       - ROS_DOMAIN_ID=10
       - DISPLAY=${DISPLAY}
