@@ -1,19 +1,27 @@
-
 services:
   ros2_camera:
     build:
       context: ./ros2_camera/
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.gpu
     container_name: ros2_camera
     environment:
-      - ROS_DOMAIN_ID=10
+      - ROS_DOMAIN_ID=9
       - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - ./ros2_camera/ros2_ws_src:/ros2_ws/src:ro
+      - ./models:/data/models:ro
+    command: ros2 launch perseption obstacle_detection.launch.py 
     devices:
       - /dev/video0:/dev/video0
-    network_mode: host 
+    network_mode: host
     ipc: host
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all # Or specify a number e.g., 1, or specific IDs with device_ids: ['0', '1']
+              capabilities: [gpu] # Request GPU capabilities
 
   ros2_rqt:
     build:
@@ -24,7 +32,7 @@ services:
     devices:
     - /dev/dri:/dev/dri
     environment:
-      - ROS_DOMAIN_ID=10
+      - ROS_DOMAIN_ID=9
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1 
       - XDG_RUNTIME_DIR=/tmp/runtime-root
